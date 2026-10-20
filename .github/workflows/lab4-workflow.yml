@@ -7,6 +7,9 @@ on:
 jobs:
     npm-package:
       runs-on: ubuntu-latest
+      permissions:
+        contents: read
+        packages: write
       steps:
         - name: Checkout Repository
           uses: actions/checkout@v4
@@ -18,4 +21,7 @@ jobs:
             # Defaults to the user or organization that owns the workflow file
         - name: Install dependencies
           run: npm install
+        - run: npm publish
+          env:
+            NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
